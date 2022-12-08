@@ -8,7 +8,7 @@ from rook import Rook
 from queen import Queen
 
 
-class Promozione(customtkinter.CTk):
+class Promotion(customtkinter.CTk):
     def __init__(self,row,col,color):
         super().__init__()
         self.piece_color = None
@@ -30,28 +30,28 @@ class Promozione(customtkinter.CTk):
         if self.color == WHITE:
 
             #white horse
-            photo1 = ImageTk.PhotoImage(Image.open('horse_white.png'))
+            photo1 = ImageTk.PhotoImage(Image.open('images/horse_white.png'))
             horse_white = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image=photo1, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('horse', 'white'))
 
             horse_white.grid(row=0,column=0)
             
             #white bishop
-            photo2 = ImageTk.PhotoImage(Image.open('bishop_white.png'))
+            photo2 = ImageTk.PhotoImage(Image.open('images/bishop_white.png'))
             bishop_white = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image= photo2, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('bishop', 'white'))
 
             bishop_white.grid(row=0, column=1)
 
             #white rook
-            photo3 = ImageTk.PhotoImage(Image.open('rook_white.png'))
+            photo3 = ImageTk.PhotoImage(Image.open('images/rook_white.png'))
             rook_white = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image= photo3, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('rook', 'white'))
 
             rook_white.grid(row=0, column=2)
 
             #white queen
-            photo4 = ImageTk.PhotoImage(Image.open('queen_white.png'))
+            photo4 = ImageTk.PhotoImage(Image.open('images/queen_white.png'))
             queen_white = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image= photo4, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('queen', 'white'))
 
@@ -60,28 +60,28 @@ class Promozione(customtkinter.CTk):
         else:
 
             #black horse
-            photo5 = ImageTk.PhotoImage(Image.open('horse_black.png'))
+            photo5 = ImageTk.PhotoImage(Image.open('images/horse_black.png'))
             horse_black = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image=photo5, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('horse', 'black'))
 
             horse_black.grid(row=0, column=0)
 
             #black bishop
-            photo6 = ImageTk.PhotoImage(Image.open('bishop_black.png'))
+            photo6 = ImageTk.PhotoImage(Image.open('images/bishop_black.png'))
             bishop_black = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image=photo6, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('bishop', 'black'))
 
             bishop_black.grid(row=0, column=1)
 
             #black rook
-            photo7 = ImageTk.PhotoImage(Image.open('rook_black.png'))
+            photo7 = ImageTk.PhotoImage(Image.open('images/rook_black.png'))
             rook_black = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image=photo7, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('rook', 'black'))
 
             rook_black.grid(row=0, column=2)
 
             #black queen
-            photo8 = ImageTk.PhotoImage(Image.open('queen_black.png'))
+            photo8 = ImageTk.PhotoImage(Image.open('images/queen_black.png'))
             queen_black = customtkinter.CTkButton(master=frame, height=100, width=100, hover_color='white', image=photo8, text="", border_width=2, border_color='black',
                                                 command= lambda: self.click('queen', 'black'))
 
@@ -142,9 +142,3 @@ class Promozione(customtkinter.CTk):
                 return new_piece
 
         return None
-
-# def main():
-#     window = Promozione(2,0, WHITE)
-#     window.mainloop()
-
-# main()

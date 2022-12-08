@@ -1,15 +1,13 @@
-import pygame
-from constants import *
 from piece import Piece, empty_square, get_piece, check_boundaries
 
 class Bishop(Piece):
 
     def __init__(self, row, col, color):
-        Piece.__init__(self, row, col, color, 'Alfiere')
+        Piece.__init__(self, row, col, color, 'Bishop')
 
     def check_pos(self, row, col, board : list[list]):
         
-        for n in range(1,8):    #diagonale nord-ovest
+        for n in range(1,8):    #northwest diagonal
             
             if not check_boundaries(self.row - n, self.col - n):
                 break
@@ -25,7 +23,7 @@ class Bishop(Piece):
             if row == self.row - n and col == self.col - n:
                 return True
 
-        for n in range(1,8):    #diagonale sud-ovest
+        for n in range(1,8):    #southwest diagonal
             
             if not check_boundaries(self.row + n, self.col - n):
                 break
@@ -41,7 +39,7 @@ class Bishop(Piece):
             if row == self.row + n and col == self.col - n:
                 return True
 
-        for n in range(1,8):    #diagonale sud-est
+        for n in range(1,8):    #southeast diagonal
             
             if not check_boundaries(self.row + n, self.col + n):
                 break
@@ -57,7 +55,7 @@ class Bishop(Piece):
             if row == self.row + n and col == self.col + n:
                 return True
 
-        for n in range(1,8):    #diagonale nord-est
+        for n in range(1,8):    #northeast diagonal
             
             if not check_boundaries(self.row - n, self.col + n):
                 break

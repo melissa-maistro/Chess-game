@@ -1,11 +1,9 @@
-import pygame
-from constants import *
 from piece import Piece, empty_square, get_piece
 
 class King(Piece):
 
     def __init__(self, row, col, color):
-        Piece.__init__(self, row, col, color, 'Re')
+        Piece.__init__(self, row, col, color, 'King')
         self.moved = False
 
     def check_pos(self, row, col, board : list[list]):

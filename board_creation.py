@@ -1,12 +1,10 @@
-import pygame
 from pawn import Pawn
 from horse import Horse
-from piece import Piece
 from bishop import Bishop
 from rook import Rook
 from king import King
 from queen import Queen
-from constants import *
+from constants import BLACK, WHITE, ROWS, COLS
 
 def create_board():
     board = [[]]
@@ -76,5 +74,5 @@ def create_board():
             else:
                 board[row].append(0)
 
-    print("board creata")
+    #print("board created")
     return board

@@ -4,8 +4,8 @@ from constants import WHITE, WHITE_BISHOP, WHITE_HORSE, WHITE_KING, WHITE_PAWN, 
 
 class Piece:
 
-    PADDING = 15    #spazio tra pedina e bordo
-    OUTLINE = 2     #bordo cella
+    PADDING = 15    #space between piece and cell border
+    OUTLINE = 2     #cell border
 
     def __init__(self, row, col, color, type):
         self.row = row
@@ -23,16 +23,16 @@ class Piece:
 
     def draw(self, window : pygame.Surface):
         
-        if self.type == 'Pedone':
+        if self.type == 'Pawn':
             
             if self.color == WHITE:   
-                window.blit(WHITE_PAWN, (self.x - WHITE_PAWN.get_width()//2,    #x,y sono al centro della pedina ma non possiamo mettere l'immagine li 
-                        self.y - WHITE_PAWN.get_height()//2))                   #perche' x,y saranno l'angolo in alto a sinistra dell'immagine
+                window.blit(WHITE_PAWN, (self.x - WHITE_PAWN.get_width()//2,    #coordinates of top left corner of the cell
+                        self.y - WHITE_PAWN.get_height()//2)) 
             else:
                 window.blit(BLACK_PAWN, (self.x - BLACK_PAWN.get_width()//2,     
                         self.y - BLACK_PAWN.get_height()//2))
 
-        elif self.type == 'Cavallo':
+        elif self.type == 'Horse':
             
             if self.color == WHITE:   
                 window.blit(WHITE_HORSE, (self.x - WHITE_HORSE.get_width()//2,     
@@ -42,7 +42,7 @@ class Piece:
                         self.y - BLACK_HORSE.get_height()//2))           
 
 
-        elif self.type == 'Alfiere':
+        elif self.type == 'Bishop':
            
             if self.color == WHITE:   
                 window.blit(WHITE_BISHOP, (self.x - WHITE_BISHOP.get_width()//2,     
@@ -52,7 +52,7 @@ class Piece:
                         self.y - BLACK_BISHOP.get_height()//2))             
 
 
-        elif self.type == 'Torre':
+        elif self.type == 'Rook':
             
             if self.color == WHITE:   
                 window.blit(WHITE_ROOK, (self.x - WHITE_ROOK.get_width()//2,     
@@ -62,7 +62,7 @@ class Piece:
                         self.y - BLACK_ROOK.get_height()//2))           
 
 
-        elif self.type == 'Re':
+        elif self.type == 'King':
             
             if self.color == WHITE:   
                 window.blit(WHITE_KING, (self.x - WHITE_KING.get_width()//2,     
@@ -72,7 +72,7 @@ class Piece:
                         self.y - BLACK_KING.get_height()//2))             
 
 
-        elif self.type == 'Regina':
+        elif self.type == 'Queen':
             
             if self.color == WHITE:   
                 window.blit(WHITE_QUEEN, (self.x - WHITE_QUEEN.get_width()//2,     

@@ -4,7 +4,7 @@ from piece import Piece, empty_square, get_piece
 class Pawn(Piece):
 
     def __init__(self, row, col, color):
-        Piece.__init__(self, row, col, color, 'Pedone')
+        Piece.__init__(self, row, col, color, 'Pawn')
         self.move_count = 0
         self.two_squares_move = False
 
@@ -13,7 +13,7 @@ class Pawn(Piece):
         #print("check_pos pawn")
         if self.color == WHITE:
 
-            #print("Pedone bianco")
+            #print("white pawn")
 
             if (row == self.row - 1) and (col == self.col):
 
@@ -35,7 +35,7 @@ class Pawn(Piece):
         
         elif self.color == BLACK:
 
-            #print("Pedone nero")
+            #print("black pawn")
 
             if (row == self.row + 1) and (col == self.col):
 

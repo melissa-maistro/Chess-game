@@ -1,11 +1,9 @@
-import pygame
-from constants import *
 from piece import Piece, empty_square, get_piece
 
 class Horse(Piece):
 
     def __init__(self, row, col, color):
-        Piece.__init__(self, row, col, color, 'Cavallo')
+        Piece.__init__(self, row, col, color, 'Horse')
 
     def check_pos(self, row, col, board : list[list]):
         

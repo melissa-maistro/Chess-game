@@ -7,15 +7,15 @@ class Game:
     def __init__(self, window):
         self._init()
         self.window = window
-        print("gioco creato")
+        #print("game created")
 
     def _init(self):
         self.selected : Piece = None
         self.board = Board()
         self.turn = WHITE
         self.valid_moves = []
-        self.valid_en_passant  = False          # indica se en passant e' valido per questo turno
-        self.en_passant_pieces = (0,0,0)        # 1) pedone da mangiare, 2) pedone a destra che potrebbe mangiarlo, 3) pedone a sinistra che potrebbe mangiarlo
+        self.valid_en_passant  = False          # indicates if en passant is valid for this turn
+        self.en_passant_pieces = (0,0,0)        # (pawn to eat, pawn to the right who could eat it, pawn to the left who could eat it)
 
     def update(self):
         self.board.draw(self.window)
@@ -37,8 +37,9 @@ class Game:
 
         if piece != 0 and piece.color == self.turn: 
             self.selected = piece                   
-            self.valid_moves = self.board.get_valid_moves(piece) 
-            self.short_castling(piece)                              #aggiungo eventuali altre mosse speciali
+            self.valid_moves = self.board.get_valid_moves(piece)
+            #adding special moves
+            self.short_castling(piece)                              
             self.long_castling(piece)
             self.add_en_passant_move()
             return True
@@ -47,38 +48,41 @@ class Game:
 
     def _move(self, row, col):
 
-        print("_move iniziato")
-        if self.move_castling(row, col):                            #arrocco
-            print("arrocco effettuato")
+        #print("_move started")
+        #castling
+        if self.move_castling(row, col):                            
+            #print("castling carried out")
             self.change_turn()
             self.selected = None
             return True
         
-        elif self.move_en_passant(row, col):                        #en passant
+        #en passant
+        elif self.move_en_passant(row, col):                        
             self.board.remove(self.en_passant_pieces[0])
             self.change_turn()
             self.selected = None
             return True
         
-        elif self.selected != None and self.selected.check_pos(row, col, self.board.get_matrix()) and self.board.try_move_valid(self.selected, row, col):       #move normale
-            print("_move valido")
+        #regular move
+        elif self.selected != None and self.selected.check_pos(row, col, self.board.get_matrix()) and self.board.try_move_valid(self.selected, row, col):       
+            #print("valid _move")
             skipped = get_piece(self.board.get_matrix(), row, col)
 
             if skipped != 0:
-                print(f"pedina mangiata: {skipped}")
+                #print(f"piece removed: {skipped}")
                 self.board.remove(skipped)
-                print(f"{skipped} rimosso")
+                #print(f"{skipped} removed")
 
             self.board.move(self.selected, row, col)
             
-            print("cambio turno")
+            #print("change turn")
             self.check_en_passant()     
             self.change_turn()
             self.selected = None
             self.board.print_board()
 
         else:
-            print("_move finito")
+            #print("_move finished")
             return False
         return True
 
@@ -87,11 +91,11 @@ class Game:
             
             if self.short_castling(self.selected):
 
-                print("arrocco corto")
+                #print("short castling")
                 
                 if self.turn == BLACK and (row,col) == (0,6):
 
-                    print("nero")
+                    #print("black")
 
                     rook = get_piece(self.board.get_matrix(), 0, 7)
 
@@ -101,7 +105,7 @@ class Game:
                 
                 elif self.turn == WHITE and (row, col) == (7,6):
 
-                    print("bianco")
+                    #print("white")
 
                     rook = get_piece(self.board.get_matrix(), 7, 7)
 
@@ -112,11 +116,11 @@ class Game:
             
             if self.long_castling(self.selected):
 
-                print("arrocco lungo")
+                #print("long castling")
                 
                 if self.turn == BLACK and (row,col) == (0,2):
 
-                    print("nero")
+                    #print("black")
 
                     rook = get_piece(self.board.get_matrix(), 0, 0)
 
@@ -126,7 +130,7 @@ class Game:
                 
                 elif self.turn == WHITE and (row, col) == (7,2):
 
-                    print("bianco")
+                    #print("white")
 
                     rook = get_piece(self.board.get_matrix(), 7, 0)
 
@@ -134,7 +138,7 @@ class Game:
 
                     return True
         
-        print("no arrocco")
+        #print("no castling")
         return False
 
     def change_turn(self):
@@ -164,7 +168,7 @@ class Game:
                                 row * SQUARE_SIZE + SQUARE_SIZE//2), 15)
 
     def winner(self):
-        if self.board.scaccomatto_bianco() or self.board.scaccomatto_nero():
+        if self.board.white_checkmate() or self.board.black_checkmate():
             return True
         return False
 
@@ -181,17 +185,17 @@ class Game:
 
         if self.board.short_castling(king):
 
-            print("arrocco corto possibile")
+            #print("short castling is possible")
             
             if king.color == BLACK:
 
                 self.valid_moves.append((0,6))
-                print("aggiunto arrocco corto a mosse valide")
+                #print("short castling added to valid moves")
             
             else:
 
                 self.valid_moves.append((7,6))
-                print("aggiunto arrocco corto a mosse valide")
+                #print("short castling added to valid moves")
 
             return True
 
@@ -202,17 +206,17 @@ class Game:
 
         if self.board.long_castling(king):
 
-            print("arrocco lungo possibile")
+            #print("long castling is possible")
             
             if king.color == BLACK:
 
                 self.valid_moves.append((0,2))
-                print("aggiunto arrocco lungo a mosse valide")
+                #print("long castling added to valid moves")
             
             else:
 
                 self.valid_moves.append((7,2))
-                print("aggiunto arrocco lungo a mosse valide")
+                #print("long castling added to valid moves")
 
             return True
 
@@ -221,7 +225,7 @@ class Game:
     def check_en_passant(self):
 
         if self.board.check_en_passant(self.selected) != False:
-            print("en passant possibile")
+            #print("en passant is possible")
 
             self.valid_en_passant = True
 
@@ -229,10 +233,10 @@ class Game:
 
             self.en_passant_pieces = (self.selected, piece_right, piece_left)
 
-            print(f"{self.selected}, {piece_right}, {piece_left}")
+            #print(f"{self.selected}, {piece_right}, {piece_left}")
 
         else:
-            print("no en passant")
+            #print("no en passant")
             self.valid_en_passant = False
             self.en_passant_pieces = (0,0,0)
 
@@ -247,14 +251,14 @@ class Game:
                     
                     if self.selected == piece_right:
                         self.valid_moves.append((self.selected.row -1, self.selected.col -1))
-                        print("aggiunta mossa en passant")
+                        #print("en passant added to moves")
                 
                 piece_left = self.en_passant_pieces[2]
                 if piece_left != 0:
                     
                     if self.selected == piece_left:
                         self.valid_moves.append((self.selected.row -1, self.selected.col +1))
-                        print("aggiunta mossa en passant")
+                        #print("en passant added to moves")
 
             else:
 
@@ -263,14 +267,14 @@ class Game:
                     
                     if self.selected == piece_right:
                         self.valid_moves.append((self.selected.row +1, self.selected.col -1))
-                        print("aggiunta mossa en passant")
+                        #print("en passant added to moves")
                 
                 piece_left = self.en_passant_pieces[2]
                 if piece_left != 0:
                     
                     if self.selected == piece_left:
                         self.valid_moves.append((self.selected.row +1, self.selected.col +1))
-                        print("aggiunta mossa en passant")
+                        #print("en passant added to moves")
         
     
     def move_en_passant(self, row, col):
@@ -282,7 +286,7 @@ class Game:
                 
                 if self.selected == piece_right and (row,col) == (self.selected.row -1, self.selected.col -1):
                     self.board.move(self.selected, row, col)
-                    print("en passant effettuato")
+                    #print("en passant carried out")
                     return True
             
             piece_left = self.en_passant_pieces[2]
@@ -290,7 +294,7 @@ class Game:
                 
                 if self.selected == piece_left and (row,col) == (self.selected.row -1, self.selected.col +1):
                     self.board.move(self.selected, row, col)
-                    print("en passant effettuato")
+                    #print("en passant carried out")
                     return True
             
         else:
@@ -300,7 +304,7 @@ class Game:
                 
                 if self.selected == piece_right and (row, col) == (self.selected.row +1, self.selected.col -1):
                     self.board.move(self.selected, row, col)
-                    print("en passant effettuato")
+                    #print("en passant carried out")
                     return True
             
             piece_left = self.en_passant_pieces[2]
@@ -308,7 +312,7 @@ class Game:
                 
                 if self.selected == piece_left and (row, col) == (self.selected.row +1, self.selected.col +1):
                     self.board.move(self.selected, row, col)
-                    print("en passant effettuato")
+                    #print("en passant carried out")
                     return True
         
         return False

@@ -1,16 +1,14 @@
-import pygame
-from constants import *
 from piece import Piece, empty_square, get_piece, check_boundaries
 
 class Rook(Piece):
 
     def __init__(self, row, col, color):
-        Piece.__init__(self, row, col, color, 'Torre')
+        Piece.__init__(self, row, col, color, 'Rook')
         self.moved = False
 
     def check_pos(self, row, col, board : list[list]):
         
-        for n in range(1,8):    #sinistra
+        for n in range(1,8):    #left
             
             if row != self.row:
                 break
@@ -29,7 +27,7 @@ class Rook(Piece):
             if col == self.col - n:
                 return True
 
-        for n in range(1,8):    #destra
+        for n in range(1,8):    #right
             
             if row != self.row:
                 break
@@ -48,7 +46,7 @@ class Rook(Piece):
             if col == self.col + n:
                 return True
 
-        for n in range(1,8):    #su
+        for n in range(1,8):    #up
             
             if col != self.col:
                 break
@@ -67,7 +65,7 @@ class Rook(Piece):
             if row == self.row - n:
                 return True
 
-        for n in range(1,8):    #giu
+        for n in range(1,8):    #down
             
             if col != self.col:
                 break
