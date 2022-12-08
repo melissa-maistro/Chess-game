@@ -6,6 +6,7 @@ class Rook(Piece):
 
     def __init__(self, row, col, color):
         Piece.__init__(self, row, col, color, 'Torre')
+        self.moved = False
 
     def check_pos(self, row, col, board : list[list]):
         

@@ -6,6 +6,7 @@ class King(Piece):
 
     def __init__(self, row, col, color):
         Piece.__init__(self, row, col, color, 'Re')
+        self.moved = False
 
     def check_pos(self, row, col, board : list[list]):
         

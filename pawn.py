@@ -1,12 +1,12 @@
-import pygame
-from constants import *
+from constants import WHITE, BLACK
 from piece import Piece, empty_square, get_piece
 
 class Pawn(Piece):
 
     def __init__(self, row, col, color):
         Piece.__init__(self, row, col, color, 'Pedone')
-        self.first_move = True
+        self.move_count = 0
+        self.two_squares_move = False
 
     def check_pos(self, row, col, board : list[list]):
         
@@ -21,7 +21,7 @@ class Pawn(Piece):
                     return False
                 return True
 
-            if self.first_move and (row == self.row - 2) and (col == self.col):
+            if self.move_count == 0 and (row == self.row - 2) and (col == self.col):
 
                 if not empty_square(board, row, col) or not empty_square(board, self.row - 1, col):
                     return False
@@ -43,7 +43,7 @@ class Pawn(Piece):
                     return False
                 return True
 
-            if self.first_move and (row == self.row + 2) and (col == self.col):
+            if self.move_count == 0 and (row == self.row + 2) and (col == self.col):
 
                 if not empty_square(board, row, col) or not empty_square(board, self.row + 1, col):
                     return False

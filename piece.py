@@ -1,6 +1,6 @@
-from abc import abstractmethod
 import pygame
-from constants import *
+from abc import abstractmethod
+from constants import WHITE, WHITE_BISHOP, WHITE_HORSE, WHITE_KING, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK, BLACK_QUEEN, BLACK_BISHOP, BLACK_HORSE, BLACK_KING, BLACK_PAWN, BLACK_ROOK, SQUARE_SIZE
 
 class Piece:
 
